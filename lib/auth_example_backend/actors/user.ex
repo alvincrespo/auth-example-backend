@@ -15,7 +15,18 @@ defmodule AuthExampleBackend.Actors.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :password, :password_hash])
-    |> validate_required([:email, :password, :password_hash])
+    |> cast(attrs, [:email, :password])
+    |> validate_required([:email])
+    |> unique_constraint(:email)
+    |> encrypt_password()
+  end
+
+  defp encrypt_password(changeset) do
+    if changeset.valid? && Map.has_key?(changeset.changes, :password) do
+      changeset
+      |> put_change(:password_hash, Comeonin.Bcrypt.hashpwsalt(changeset.changes.password))
+    else
+      changeset
+    end
   end
 end

@@ -13,7 +13,7 @@ config :auth_example_backend,
 config :auth_example_backend, AuthExampleBackendWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "LaWeMkctiWd9RJYAe6aL4bwgGSjBc8qVHcv74wFtKCP2+a4Ip7nOYEtUNj5P2HNu",
-  render_errors: [view: AuthExampleBackendWeb.ErrorView, accepts: ~w(json)],
+  render_errors: [view: AuthExampleBackendWeb.ErrorView, accepts: ~w(json-api)],
   pubsub: [name: AuthExampleBackend.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
@@ -21,6 +21,15 @@ config :auth_example_backend, AuthExampleBackendWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+# Configuration from ja_serializer
+# Reference: https://github.com/vt-elixir/ja_serializer#configuration
+config :phoenix, :format_encoders,
+  "json-api": Poison
+
+config :mime, :types, %{
+  "application/vnd.api+json" => ["json-api"]
+}
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

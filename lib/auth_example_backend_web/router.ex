@@ -12,4 +12,6 @@ defmodule AuthExampleBackendWeb.Router do
 
     resources "/users", UserController, except: [:new, :edit]
   end
+
+  post "/api/token", AuthExampleBackendWeb.SessionController, :create, as: :login
 end

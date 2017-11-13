@@ -41,7 +41,8 @@ defmodule AuthExampleBackend.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:ja_serializer, "~> 0.12.0"}
+      {:ja_serializer, "~> 0.12.0"},
+      {:guardian, "~> 1.0-beta"}
     ]
   end
 
